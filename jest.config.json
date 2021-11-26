@@ -1,0 +1,7 @@
+{
+    "name": "todo-api",
+    "collectCoverage": true,
+    "passWithNoTests": true,
+    "verbose": true,
+    "testPathIgnorePatterns": ["build"]
+}

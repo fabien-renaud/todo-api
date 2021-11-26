@@ -1,0 +1,8 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./src",
+        "esModuleInterop": true,
+        "resolveJsonModule": true
+    },
+    "include": ["src"]
+}

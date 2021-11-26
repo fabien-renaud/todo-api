@@ -1,0 +1,14 @@
+# IDE
+.idea
+.vscode
+
+# Node
+node_modules
+build
+var/log
+
+# Testing
+coverage
+
+# Environment
+.env
