@@ -22,10 +22,7 @@ const Logger = winston.createLogger({
         // Every logs are displayed in console
         new winston.transports.Console({
             level: 'silly',
-            format: winston.format.combine(
-                winston.format.colorize(),
-                winston.format.printf(formatMessage)
-            )
+            format: winston.format.combine(winston.format.colorize(), winston.format.printf(formatMessage))
         }),
         // Only info logs and below are displayed in var/log/full.log
         new winston.transports.File({
