@@ -1,8 +1,8 @@
-import express, {Request, Response} from 'express';
+import express, {Request, Response, Router} from 'express';
 import {TaskController} from '../../../controllers';
 import {Task} from '../../../types';
 
-const router = express.Router();
+const router: Router = express.Router();
 
 router.get('/', (request: Request, response: Response) => {
     TaskController.findAll()
