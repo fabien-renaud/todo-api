@@ -1,0 +1,260 @@
+openapi: 3.0.0
+info:
+    description: TODO API in Express TS
+    version: 0.0.1
+    title: TODO API
+    contact:
+        email: contact@fabienrenaud.fr
+servers:
+    - url: http://localhost:10082
+paths:
+    /api/v1/health:
+        get:
+            tags:
+                - Health
+            summary: Healthcheck
+            operationId: health
+            responses:
+                200:
+                    $ref: '#/components/responses/200'
+    /api/v1/lists:
+        get:
+            tags:
+                - List
+            summary: Get all lists
+            operationId: getAllLists
+            responses:
+                200:
+                    $ref: '#/components/responses/200'
+                404:
+                    $ref: '#/components/responses/404'
+                500:
+                    $ref: '#/components/responses/500'
+        post:
+            tags:
+                - List
+            summary: Create list
+            operationId: createList
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/List'
+            responses:
+                201:
+                    $ref: '#/components/responses/201'
+                400:
+                    $ref: '#/components/responses/400'
+                409:
+                    $ref: '#/components/responses/409'
+                500:
+                    $ref: '#/components/responses/500'
+    /api/v1/lists/:id:
+        get:
+            tags:
+                - List
+            summary: Get list by id
+            operationId: getListById
+            parameters:
+                - in: path
+                  name: id
+                  schema:
+                      type: string
+                  required: true
+            responses:
+                200:
+                    $ref: '#/components/responses/200'
+                404:
+                    $ref: '#/components/responses/404'
+                500:
+                    $ref: '#/components/responses/500'
+        put:
+            tags:
+                - List
+            summary: Update list
+            operationId: updateList
+            parameters:
+                - in: path
+                  name: id
+                  schema:
+                      type: string
+                  required: true
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/List'
+            responses:
+                201:
+                    $ref: '#/components/responses/201'
+                400:
+                    $ref: '#/components/responses/400'
+                409:
+                    $ref: '#/components/responses/409'
+                500:
+                    $ref: '#/components/responses/500'
+        delete:
+            tags:
+                - List
+            summary: Remove list
+            operationId: removeList
+            parameters:
+                - in: path
+                  name: id
+                  schema:
+                      type: string
+                  required: true
+            responses:
+                204:
+                    $ref: '#/components/responses/204'
+                500:
+                    $ref: '#/components/responses/500'
+    /api/v1/tasks:
+        get:
+            tags:
+                - Task
+            summary: Get all tasks
+            operationId: getAllTasks
+            responses:
+                200:
+                    $ref: '#/components/responses/200'
+                404:
+                    $ref: '#/components/responses/404'
+                500:
+                    $ref: '#/components/responses/500'
+        post:
+            tags:
+                - Task
+            summary: Create task
+            operationId: createTask
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Task'
+            responses:
+                201:
+                    $ref: '#/components/responses/201'
+                400:
+                    $ref: '#/components/responses/400'
+                409:
+                    $ref: '#/components/responses/409'
+                500:
+                    $ref: '#/components/responses/500'
+    /api/v1/tasks/:id:
+        get:
+            tags:
+                - Task
+            summary: Get task by id
+            operationId: getTaskById
+            parameters:
+              - in: path
+                name: id
+                schema:
+                  type: string
+                required: true
+            responses:
+                200:
+                    $ref: '#/components/responses/200'
+                404:
+                    $ref: '#/components/responses/404'
+                500:
+                    $ref: '#/components/responses/500'
+        put:
+            tags:
+                - Task
+            summary: Update task
+            operationId: updateTask
+            parameters:
+              - in: path
+                name: id
+                schema:
+                  type: string
+                required: true
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Task'
+            responses:
+                201:
+                    $ref: '#/components/responses/201'
+                400:
+                    $ref: '#/components/responses/400'
+                409:
+                    $ref: '#/components/responses/409'
+                500:
+                    $ref: '#/components/responses/500'
+        delete:
+            tags:
+                - Task
+            summary: Remove task
+            operationId: removeTask
+            parameters:
+              - in: path
+                name: id
+                schema:
+                  type: string
+                required: true
+            responses:
+                204:
+                    $ref: '#/components/responses/204'
+                500:
+                    $ref: '#/components/responses/500'
+components:
+    responses:
+        200:
+            description: OK
+        201:
+            description: Created
+        204:
+            description: No Content
+        400:
+            description: Bad Request
+        404:
+            description: Not Found
+        409:
+            description: Conflict
+        500:
+            description: Internal Server Error
+    schemas:
+        List:
+            type: object
+            description: A list of tasks
+            properties:
+                id:
+                    type: string
+                    description: The list identifier
+                name:
+                    type: string
+                    description: The list name
+                tasks:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Task'
+                    description: The list description
+            required: [id, name]
+        Task:
+            type: object
+            description: A task to do
+            properties:
+                id:
+                    type: string
+                    description: The task identifier
+                name:
+                    type: string
+                    description: The task name
+                description:
+                    type: string
+                    description: The task description
+                status:
+                    $ref: '#/components/schemas/Status'
+            required: [id, name, status]
+        Status:
+            type: string
+            description: The task status
+            enum: [TODO, IN_PROGRESS, DONE]
