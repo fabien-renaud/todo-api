@@ -1,0 +1,6 @@
+components:
+  schemas:
+    Status:
+      type: string
+      description: The task status
+      enum: [TODO, IN_PROGRESS, DONE]

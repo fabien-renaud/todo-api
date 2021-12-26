@@ -1,0 +1,95 @@
+paths:
+  /v1/tasks:
+    get:
+      tags:
+        - Task
+      summary: Get all tasks
+      operationId: getAllTasks
+      responses:
+        200:
+          $ref: '../responses/responses.yaml#/components/responses/200'
+        404:
+          $ref: '../responses/responses.yaml#/components/responses/404'
+        500:
+          $ref: '../responses/responses.yaml#/components/responses/500'
+    post:
+      tags:
+        - Task
+      summary: Create task
+      operationId: createTask
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/task.yaml#/components/schemas/Task'
+      responses:
+        201:
+          $ref: '../responses/responses.yaml#/components/responses/201'
+        400:
+          $ref: '../responses/responses.yaml#/components/responses/400'
+        409:
+          $ref: '../responses/responses.yaml#/components/responses/409'
+        500:
+          $ref: '../responses/responses.yaml#/components/responses/500'
+  /v1/tasks/:id:
+    get:
+      tags:
+        - Task
+      summary: Get task by id
+      operationId: getTaskById
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          $ref: '../responses/responses.yaml#/components/responses/200'
+        404:
+          $ref: '../responses/responses.yaml#/components/responses/404'
+        500:
+          $ref: '../responses/responses.yaml#/components/responses/500'
+    put:
+      tags:
+        - Task
+      summary: Update task
+      operationId: updateTask
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/task.yaml#/components/schemas/Task'
+      responses:
+        201:
+          $ref: '../responses/responses.yaml#/components/responses/201'
+        400:
+          $ref: '../responses/responses.yaml#/components/responses/400'
+        409:
+          $ref: '../responses/responses.yaml#/components/responses/409'
+        500:
+          $ref: '../responses/responses.yaml#/components/responses/500'
+    delete:
+      tags:
+        - Task
+      summary: Remove task
+      operationId: removeTask
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        204:
+          $ref: '../responses/responses.yaml#/components/responses/204'
+        500:
+          $ref: '../responses/responses.yaml#/components/responses/500'

@@ -1,0 +1,21 @@
+paths:
+  /v1/health:
+    get:
+      tags: ['Health Check']
+      summary: Health Check
+      description: Health Check
+      operationId: health
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  version:
+                    type: string
+                  releaseId:
+                    type: string

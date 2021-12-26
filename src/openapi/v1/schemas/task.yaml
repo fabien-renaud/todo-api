@@ -1,0 +1,18 @@
+components:
+  schemas:
+    Task:
+      type: object
+      description: A task to do
+      properties:
+        id:
+          type: string
+          description: The task identifier
+        name:
+          type: string
+          description: The task name
+        description:
+          type: string
+          description: The task description
+        status:
+          $ref: './status.yaml#/components/schemas/Status'
+      required: [id, name, status]

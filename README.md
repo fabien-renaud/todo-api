@@ -6,11 +6,19 @@
 Todo API in Express TS
 
 ## Install
+
 ```sh
 npm install && npm run build
 ```
 
+## Setup GCP
+
+1.  [Select or create a Cloud Platform project](https://console.cloud.google.com/project).
+2.  [Enable the Cloud Firestore API](https://console.cloud.google.com/flows/enableapi?apiid=firestore.googleapis.com).
+3.  [Set up authentication with a service account](https://cloud.google.com/docs/authentication/getting-started) so you can access the API from your local workstation.
+
 ## Usage
+
 ```sh
 # Development mode
 npm run dev
