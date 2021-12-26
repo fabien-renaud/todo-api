@@ -1,8 +1,20 @@
 {
     "compilerOptions": {
-        "baseUrl": "./src",
+        "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
-        "resolveJsonModule": true
+        "noImplicitAny": true,
+        "removeComments": true,
+        "resolveJsonModule": true,
+        "preserveConstEnums": true,
+        "sourceMap": false,
+        "baseUrl": ".",
+        "skipLibCheck": true,
+        "target": "ES2019",
+        "moduleResolution": "Node",
+        "outDir": "tsc-out",
+        "typeRoots" : ["./node_modules/@types", "./typings"]
     },
-    "include": ["src"]
+    "include": [
+        "src/**/*"
+    ]
 }

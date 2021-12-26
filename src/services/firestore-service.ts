@@ -1,26 +1,50 @@
 import {Firestore, QueryDocumentSnapshot, QuerySnapshot} from '@google-cloud/firestore';
 
-const database: Firestore = new Firestore({projectId: process.env.PROJECT_ID});
-
-async function findAll<T>(collectionName: string): Promise<T[]> {
-    const query: QuerySnapshot = await database.collection(collectionName).get();
-    return query.docs.map((doc: QueryDocumentSnapshot<T>) => doc.data());
+export type CRUDService = {
+    findAll: <T>() => Promise<T[]>,
+    findById: <T>(id: string) => Promise<T>,
+    create: <T>(document: T) => Promise<void>,
+    update: <T>(id: string, document: T) => Promise<void>,
+    remove: <T>(id: string) => Promise<void>
 }
 
-async function findById<T>(collectionName: string, id: string): Promise<T> {
-    return Promise.resolve(undefined);
+function findAll<T>(database: Firestore, collectionName: string) {
+    return async function <T>(): Promise<T[]> {
+        const query: QuerySnapshot = await database.collection(collectionName).get();
+        return query.docs.map((doc: QueryDocumentSnapshot<T>) => doc.data());
+    };
 }
 
-async function create<T>(collectionName: string, document: T): Promise<void> {
-    await database.collection(collectionName).add(document);
+function findById<T>(database: Firestore, collectionName: string) {
+    return async function <T>(id: string): Promise<T> {
+        return Promise.resolve(undefined);
+    };
 }
 
-async function update<T>(collectionName: string, id: string, document: T): Promise<void> {
-    await Promise.resolve();
+function create<T>(database: Firestore, collectionName: string) {
+    return async function <T>(document: T): Promise<void> {
+        await database.collection(collectionName).add(document);
+    };
 }
 
-async function remove(collectionName: string, id: string): Promise<void> {
-    await Promise.resolve();
+function update<T>(database: Firestore, collectionName: string) {
+    return async function <T>(id: string, document: T): Promise<void> {
+        await Promise.resolve();
+    };
 }
 
-export const FirestoreService = {findAll, findById, create, update, remove};
+function remove<T>(database: Firestore, collectionName: string) {
+    return async function (id: string): Promise<void> {
+        await Promise.resolve();
+    };
+}
+
+export function createService<T>(database: Firestore, collectionName: string): CRUDService {
+    return {
+        findAll: findAll<T>(database, collectionName),
+        findById: findById<T>(database, collectionName),
+        create: create<T>(database, collectionName),
+        update: update<T>(database, collectionName),
+        remove: remove<T>(database, collectionName)
+    };
+}

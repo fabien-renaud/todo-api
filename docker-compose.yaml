@@ -1,0 +1,29 @@
+version: "3.9"
+
+networks:
+  default:
+    driver: bridge
+
+services:
+  todo-api:
+    container_name: todo-api
+    image: node:16.13.1
+    command: bash -c "cd /app && npm ci && npm start"
+    environment:
+      - FIRESTORE_EMULATOR_HOST=firebase-emulator:15080
+    networks:
+      - default
+    ports:
+      - 11000:11000
+    volumes:
+      - /d/projets/todo-api:/app
+  firebase-emulator:
+    container_name: firebase-emulator
+    build:
+      context: ./docker/firebase-emulator
+      dockerfile: Dockerfile
+    networks:
+      - default
+    ports:
+      - 15000:15000 # User interface
+      - 15080:15080 # Firestore emulator

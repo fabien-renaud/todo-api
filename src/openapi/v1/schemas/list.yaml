@@ -1,0 +1,18 @@
+components:
+  schemas:
+    List:
+      type: object
+      description: A list of tasks
+      properties:
+        id:
+          type: string
+          description: The list identifier
+        name:
+          type: string
+          description: The list name
+        tasks:
+          type: array
+          items:
+            $ref: './task.yaml#/components/schemas/Task'
+          description: The list description
+      required: [id, name]

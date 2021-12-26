@@ -1,0 +1,95 @@
+paths:
+  /v1/lists:
+    get:
+      tags:
+        - List
+      summary: Get all lists
+      operationId: getAllLists
+      responses:
+        200:
+          $ref: '../responses/responses.yaml#/components/responses/200'
+        404:
+          $ref: '../responses/responses.yaml#/components/responses/404'
+        500:
+          $ref: '../responses/responses.yaml#/components/responses/500'
+    post:
+      tags:
+        - List
+      summary: Create list
+      operationId: createList
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/list.yaml#/components/schemas/List'
+      responses:
+        201:
+          $ref: '../responses/responses.yaml#/components/responses/201'
+        400:
+          $ref: '../responses/responses.yaml#/components/responses/400'
+        409:
+          $ref: '../responses/responses.yaml#/components/responses/409'
+        500:
+          $ref: '../responses/responses.yaml#/components/responses/500'
+  /v1/lists/:id:
+    get:
+      tags:
+        - List
+      summary: Get list by id
+      operationId: getListById
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        200:
+          $ref: '../responses/responses.yaml#/components/responses/200'
+        404:
+          $ref: '../responses/responses.yaml#/components/responses/404'
+        500:
+          $ref: '../responses/responses.yaml#/components/responses/500'
+    put:
+      tags:
+        - List
+      summary: Update list
+      operationId: updateList
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../schemas/list.yaml#/components/schemas/List'
+      responses:
+        201:
+          $ref: '../responses/responses.yaml#/components/responses/201'
+        400:
+          $ref: '../responses/responses.yaml#/components/responses/400'
+        409:
+          $ref: '../responses/responses.yaml#/components/responses/409'
+        500:
+          $ref: '../responses/responses.yaml#/components/responses/500'
+    delete:
+      tags:
+        - List
+      summary: Remove list
+      operationId: removeList
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        204:
+          $ref: '../responses/responses.yaml#/components/responses/204'
+        500:
+          $ref: '../responses/responses.yaml#/components/responses/500'

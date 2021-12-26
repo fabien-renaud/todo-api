@@ -1,10 +1,11 @@
 import express, {Express} from 'express';
 import {initialize} from 'express-openapi';
+import fs from 'fs';
+import path from 'path';
 import swaggerUi from 'swagger-ui-express';
 import yaml from 'yaml';
-import fs from 'fs';
-import * as operations from '../routes';
-import {httpRequestLoggerMiddleware, httpResponseLoggerMiddleware} from './middlewares';
+import * as operations from '../operations';
+import {errorMiddleware, httpRequestLoggerMiddleware, httpResponseLoggerMiddleware} from './middlewares';
 
 // Express server
 const server: Express = express();
@@ -17,15 +18,15 @@ server.use(httpRequestLoggerMiddleware);
 server.use(httpResponseLoggerMiddleware);
 
 // Render OpenAPI Specifications
-const swaggerConfigFile: string = fs.readFileSync('src/core/swagger.yaml', 'utf-8');
-const swaggerConfig = yaml.parse(swaggerConfigFile);
-server.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerConfig));
+const swaggerConfig: string = fs.readFileSync(path.resolve(__dirname, './openapi.yaml'), 'utf-8');
+server.use('/docs', swaggerUi.serve, swaggerUi.setup(yaml.parse(swaggerConfig)));
 
 // Generate endpoints from OpenAPI Specifications
 initialize({
     app: server,
     apiDoc: swaggerConfig,
-    operations
+    operations,
+    errorMiddleware
 });
 
 export {server};

@@ -1,11 +1,11 @@
-import winston from 'winston';
+import winston, {Logger} from 'winston';
 import {name} from '../../package.json';
 
 function formatMessage(info: winston.Logform.TransformableInfo): string {
     return `${info.timestamp} ${info.level} ${info.label} ${info.message}`;
 }
 
-const Logger = winston.createLogger({
+const Logger: Logger = winston.createLogger({
     /*
      * Logging levels are detailled here: https://github.com/winstonjs/winston#logging-levels
      *   error: 0,

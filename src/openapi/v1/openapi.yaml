@@ -1,0 +1,43 @@
+openapi: 3.0.0
+info:
+  description: TODO API in Express TS
+  version: 0.0.1
+  title: TODO API
+  contact:
+    email: contact@fabienrenaud.fr
+servers:
+  - url: http://localhost:11000
+paths:
+  /v1/health:
+    $ref: './paths/health.yaml#/paths/~1v1~1health'
+  /v1/lists:
+    $ref: './paths/lists.yaml#/paths/~1v1~1lists'
+  /v1/lists/:id:
+    $ref: './paths/lists.yaml#/paths/~1v1~1lists~1:id'
+  /v1/tasks:
+    $ref: './paths/tasks.yaml#/paths/~1v1~1tasks'
+  /v1/tasks/:id:
+    $ref: './paths/tasks.yaml#/paths/~1v1~1tasks~1:id'
+components:
+  schemas:
+    List:
+      $ref: './schemas/list.yaml#/components/schemas/List'
+    Task:
+      $ref: './schemas/task.yaml#/components/schemas/Task'
+    Status:
+      $ref: './schemas/status.yaml#/components/schemas/Status'
+  responses:
+    200:
+      $ref: './responses/responses.yaml#/components/responses/200'
+    201:
+      $ref: './responses/responses.yaml#/components/responses/201'
+    204:
+      $ref: './responses/responses.yaml#/components/responses/204'
+    400:
+      $ref: './responses/responses.yaml#/components/responses/400'
+    404:
+      $ref: './responses/responses.yaml#/components/responses/404'
+    409:
+      $ref: './responses/responses.yaml#/components/responses/409'
+    500:
+      $ref: './responses/responses.yaml#/components/responses/500'
